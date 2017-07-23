@@ -1,9 +1,11 @@
 STATES
 id: 0, default: null, initial:true, final:false
 id: 1, default: null, initial:false, final:false
-id: 2, default: 2, initial:false, final:true
+id: 2, default: 2, initial:false, final:false
+id: 3, default: 2, initial:false, final:false
 id: 3, default: null, initial:false, final:true
 TRANSITIONS
 id: 0, id: 1, triggers: {/}
-id: 1, id: 2, triggers: {/}
-id: 2, id: 3, triggers: {\n}
+id: 1, id: 2, triggers: {*}
+id: 2, id: 3, triggers: {*}
+id: 3, id: 4, triggers: {/}
