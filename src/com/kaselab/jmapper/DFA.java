@@ -35,12 +35,21 @@ public class DFA {
 		isSucceeded = false;
 	}
 
+	/**
+	 * resets the dfa back to its initial state and sets
+	 * isChecking back to true.
+	 */
 	public void reset() {
 		currentState = initialState;
 		isChecking = true;
 		isSucceeded = false;
 	}
 
+	/**
+	 * decides the next state of the dfa determined by the char
+	 * passed in the parameter.
+	 * @param chr used to determine the next state of the dfa
+	 */
 	public void nextState(char chr) {
 		currentState = currentState.findNextState(chr);
 		if (currentState == null)
@@ -49,6 +58,14 @@ public class DFA {
 			isSucceeded = currentState.isFinal();
 	}
 
+	/**
+	 * runs this dfa on the String passed and returns a boolean
+	 * value indicating whether or not the string is defined by
+	 * the DFA.
+	 * @param str string to be tested by the dfa
+	 * @return boolean representing whether or not the dfa
+	 * describes the string passed
+	 */
 	public boolean checkString(String str) {
 		reset();
 		char[] chrs = str.toCharArray();
@@ -63,10 +80,27 @@ public class DFA {
 		return succeeded;
 	}
 
+	/**
+	 * Returns a boolean value representing whether or the dfa is
+	 * still in a valid state to continue checking. If the dfa is
+	 * no longer in a valid state then the char array being tested
+	 * should be evaluated to determine if it is described by this
+	 * dfa.
+	 * @return a boolean value representing whether or the dfa is
+	 * still in a valid state to continue checking
+	 */
 	public boolean isChecking() {
 		return isChecking;
 	}
 
+	/**
+	 * Returns a boolean value representing whether or not the dfa
+	 * is currently in a final state. This value should be ignored
+	 * until isChecking returns false so that it can be known that
+	 * the dfa has analyzed as much as possible.
+	 * @return a boolean value representing whether or not the dfa
+	 * is currently in a final state.
+	 */
 	public boolean isSucceeded() {
 		return isSucceeded;
 	}
@@ -75,8 +109,8 @@ public class DFA {
 	///// DFA parsing code /////
 
 	/**
-	 * fills the states array with a list of all the states
-	 * saved in the file passed as an argument.
+	 * Fills the states array with a list of all the states saved in
+	 * the file passed as an argument.
 	 * @param file source of the DFA data
 	 */
 	private void readStates(File file) {
@@ -139,7 +173,7 @@ public class DFA {
 	}
 
 	/**
-	 * simple parser for the characters that will be encountered in the
+	 * Simple parser for the characters that will be encountered in the
 	 * DFA files to the characters that they actually represents.
 	 * @param str representing a single character
 	 * @return the character the string is meant to represent
@@ -153,34 +187,57 @@ public class DFA {
 		}
 	}
 
+	//////////////////////////////////////
 	///// Debugging and clarity Code /////
+	//////////////////////////////////////
 
+	/**
+	 * Generates a string that details the structure of the
+	 * dfa in a human readable way.
+	 * @return string describing the dfa
+	 */
 	@Override
 	public String toString() {
-//		if (states.size() == 0)
-//			return "empty DFA";
+		if (states.size() == 0)
+			return "empty DFA";
 		StringBuilder build = new StringBuilder();
-		List<Character> triggers;
 		for (State state : states) {
 			build.append(state);
 			build.append("\n");
-			for (Map.Entry<State, List<Character>> connection
-					: state.getStateMapping().entrySet()) {
-				triggers = connection.getValue();
-				build.append("\tConnected to: ");
-				build.append(connection.getKey().getId());
-				build.append(", Triggered by: ");
-				for (int i = 0; i < triggers.size(); i++) {
-					build.append(triggers.get(i));
-					if (i < triggers.size() - 1)
-						build.append(", ");
-				}
-			}
-			build.append("\n");
+			build.append(getConnectionString(state));
 		}
 		return build.toString();
 	}
 
+	/**
+	 * Returns a string that presents, in a human readable way,
+	 * what a particular transitions are attached to a particular
+	 * state.
+	 * @param state to print a list of transitions for
+	 * @return human readable list of transitions
+	 */
+	public String getConnectionString(State state) {
+		StringBuilder build = new StringBuilder();
+		List<Character> triggers;
+		for (Map.Entry<State, List<Character>> connection
+				: state.getStateMapping().entrySet()) {
+			triggers = connection.getValue();
+			build.append("\tConnected to: ");
+			build.append(connection.getKey().getId());
+			build.append(", Triggered by: ");
+			for (int i = 0; i < triggers.size(); i++) {
+				build.append(triggers.get(i));
+				if (i < triggers.size() - 1)
+					build.append(", ");
+			}
+		}
+		build.append("\n");
+		return build.toString();
+	}
+
+	////////////////////////////////
+	///// Internal State class /////
+	////////////////////////////////
 
 	/**
 	 * Represents an individual state that the DFA can be in as
@@ -208,7 +265,7 @@ public class DFA {
 		}
 
 		/**
-		 * adds the character as valid transitions to the indicated
+		 * Adds the character as valid transitions to the indicated
 		 * state.
 		 * @param chr to direct to the given state
 		 * @param state to be directed to by the given char
@@ -218,7 +275,7 @@ public class DFA {
 		}
 
 		/**
-		 * adds all the characters in the char[] as valid transitions
+		 * Adds all the characters in the char[] as valid transitions
 		 * to the identified state.
 		 * @param chrs to direct to the given state
 		 * @param state to be directed to by the given chars
@@ -229,7 +286,7 @@ public class DFA {
 		}
 
 		/**
-		 * sets the state that should be pointed too if the an
+		 * Sets the state that should be pointed too if the an
 		 * unmapped char is passed. this value is null unless
 		 * otherwise set.
 		 * @param defaultState to be pointed to when unmapped keys are
@@ -240,7 +297,7 @@ public class DFA {
 		}
 
 		/**
-		 * reutrns whether or not this state is set to be a valid
+		 * Returns whether or not this state is set to be a valid
 		 * final state.
 		 * @return boolean valued indicating that this state is or
 		 * is not a final state.
@@ -250,7 +307,7 @@ public class DFA {
 		}
 
 		/**
-		 * returns whether or not this state is set to be initial.
+		 * Returns whether or not this state is set to be initial.
 		 * @return boolean valued indicating that this state is or
 		 * is not the initial state.
 		 */
@@ -259,7 +316,7 @@ public class DFA {
 		}
 
 		/**
-		 * returns the ID of this state for human inspection.
+		 * Returns the ID of this state for human inspection.
 		 * @return the id of this state
 		 */
 		private int getId() {
@@ -301,7 +358,7 @@ public class DFA {
 		}
 
 		/**
-		 * returns a String representation of the State.
+		 * Returns a String representation of the State.
 		 * @return String representation of the State
 		 */
 		@Override
