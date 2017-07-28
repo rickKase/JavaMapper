@@ -1,4 +1,4 @@
-package com.kaselab.jmapper;
+package com.kaselabs.jmapper;
 
 import java.io.File;
 
@@ -8,7 +8,9 @@ import java.io.File;
 public class Main {
 
 	public static void main(String[] args) {
+		DFA dfa = new DFA(new File("data\\dfas\\multiline-comment.txt"));
 
+		System.out.println(dfa);
 	}
 
 }

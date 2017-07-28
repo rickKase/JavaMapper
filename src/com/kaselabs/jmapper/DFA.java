@@ -1,4 +1,4 @@
-package com.kaselab.jmapper;
+package com.kaselabs.jmapper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,21 +9,23 @@ import java.util.Map;
 /**
  * Created by Rick on 7/22/2017.
  */
-public class DFA {
+public class DFA implements Recognizer {
 
 	private List<State> states = new ArrayList<>();
 	private List<State> finalStates = new ArrayList<>();
 	private State initialState;
 	private State currentState;
+
 	private boolean isChecking;
 	private boolean isSucceeded;
+	private int startIndex;
 
 	/**
 	 * Creates a DFA from the data provided in the file.
 	 * @param file
 	 */
 	public DFA(File file) {
-		readStates(file);
+		readStatesOld(file);
 		for (State state : states)
 			if (state.isInitial()) {
 				initialState = state;
@@ -33,6 +35,10 @@ public class DFA {
 		isChecking = true;
 		isSucceeded = false;
 	}
+
+	/////////////////////////////
+	///// Operating the DFA /////
+	/////////////////////////////
 
 	/**
 	 * resets the dfa back to its initial state and sets
@@ -49,7 +55,7 @@ public class DFA {
 	 * passed in the parameter.
 	 * @param chr used to determine the next state of the dfa
 	 */
-	public void nextState(char chr) {
+	public void checkNext(char chr) {
 		currentState = currentState.findNextState(chr);
 		if (currentState == null)
 			isChecking = false;
@@ -70,7 +76,7 @@ public class DFA {
 		char[] chrs = str.toCharArray();
 		boolean succeeded;
 		for (char chr : chrs) {
-			nextState(chr);
+			checkNext(chr);
 			if (!isChecking)
 				break;
 		}
@@ -105,14 +111,38 @@ public class DFA {
 	}
 
 
+	public void setStartIndex(int i) {
+		this.startIndex = i;
+	}
+	public Token getOutput(int i, List<Character> input) {
+		StringBuilder build = new StringBuilder();
+		build.append(input.subList(startIndex, i));
+		return new Token(null, build.toString());
+	}
+
+
+	////////////////////////////////
+	///// Constructing the DFA /////
+	////////////////////////////////
+
+	public void addState(State state) {
+		states.add(state);
+	}
+
+	public void addTransition(int from, int to, List<Character> triggers) {
+
+	}
+
+	////////////////////////////
 	///// DFA parsing code /////
+	////////////////////////////
 
 	/**
 	 * Fills the states array with a list of all the states saved in
 	 * the file passed as an argument.
 	 * @param file source of the DFA data
 	 */
-	private void readStates(File file) {
+	private void readStatesOld(File file) {
 		Iterator<String> i = IOHandler.readFileLineIterator(file);
 		String interpreterType = "";
 		String curString;
@@ -123,9 +153,9 @@ public class DFA {
 				continue;
 			}
 			if (interpreterType.equals("STATES"))
-				interpretAsState(curString);
+				interpretAsStateOld(curString);
 			else if (interpreterType.equals("TRANSITIONS"))
-				interpretAsTransition(curString);
+				interpretAsTransitionOld(curString);
 		}
 	}
 
@@ -135,7 +165,7 @@ public class DFA {
 	 * states.
 	 * @param code to be interpreted
 	 */
-	private void interpretAsState(String code) {
+	private void interpretAsStateOld(String code) {
 		String[] values = code.split(",");
 		int index = Integer.valueOf(values[0].split(":")[1].trim());
 		String defaultState = values[1].split(":")[1].trim();
@@ -158,7 +188,7 @@ public class DFA {
 	 * \n \t and so on.
 	 * @param code to be interpreted
 	 */
-	private void interpretAsTransition(String code) {
+	private void interpretAsTransitionOld(String code) {
 		String[] values = code.split(",");
 		// prepare indices
 		int firstStateIndex = Integer.valueOf(values[0].split(":")[1].trim());

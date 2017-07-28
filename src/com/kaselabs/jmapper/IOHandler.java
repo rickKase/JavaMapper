@@ -1,4 +1,4 @@
-package com.kaselab.jmapper;
+package com.kaselabs.jmapper;
 
 import java.io.*;
 import java.util.ArrayList;

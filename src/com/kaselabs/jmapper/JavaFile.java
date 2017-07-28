@@ -1,22 +1,11 @@
-package com.kaselab.jmapper;
+package com.kaselabs.jmapper;
 
 /**
  * Created by Rick on 7/21/2017.
  */
 public class JavaFile {
 
-	int x = 1_234;
-	double y = 234___________23.234_23;
-
-
 	public JavaFile(char[] chars) {
-		StringBuilder build = new StringBuilder();
-		for (char chr : chars) {
-			if (!build.toString().equals("")) {
-
-			} else
-				System.out.println(build.toString());
-		}
 	}
 
 

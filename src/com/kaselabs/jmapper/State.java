@@ -1,4 +1,4 @@
-package com.kaselab.jmapper;
+package com.kaselabs.jmapper;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -10,9 +10,10 @@ import java.util.Map;
  * well as all the transitions possible within the state.
  */
 public class State {
+
 	private int id;
-	private boolean isFinal;
 	private boolean isInitial;
+	private boolean isFinal;
 	private Map<Character, State> stateMap = new HashMap<>();
 	private State defaultState = null;
 
