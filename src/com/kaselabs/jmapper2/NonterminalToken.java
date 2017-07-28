@@ -10,14 +10,14 @@ public class NonterminalToken extends Token {
 
 	private List<Token> subTokens;
 
-	public NonterminalToken(TokenType tokenType) {
+	public NonterminalToken(TokenType tokenType, List<Token> subTokens) {
 		super(tokenType);
-		subTokens = new ArrayList<>();
+		subTokens = subTokens;
 	}
-
-	public void addSubToken(Token token) {
-		subTokens.add(token);
-	}
+//
+//	public void addSubToken(Token token) {
+//		subTokens.add(token);
+//	}
 
 	public Token[] getSubTokens() {
 		return subTokens.toArray(new Token[0]);
