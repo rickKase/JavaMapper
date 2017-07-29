@@ -19,7 +19,7 @@ public class JavaLexer {
 
 	}
 
-	public Token interpretInput() throws IllegalArgumentException {
+	public Token interpretInput(){
 		Token token;
 		for (int i = 0; i < input.size(); i++) {
 			recognizer.checkNext(input.get(i));

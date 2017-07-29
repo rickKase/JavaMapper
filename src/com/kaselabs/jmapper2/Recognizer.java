@@ -19,9 +19,10 @@ import java.util.List;
  */
 public abstract class Recognizer {
 
-	private boolean checking;
-	private boolean succeeded;
-	private StringBuilder charLog;
+	protected boolean checking;
+	protected boolean succeeded;
+	protected StringBuilder charLog;
+	protected TokenType tokenType;
 
 	public Recognizer() {
 		reset();
@@ -47,10 +48,8 @@ public abstract class Recognizer {
 
 	public abstract Token getOutput();
 
-	public String getText() {
-		return charLog.toString();
-	}
-
-	public abstract void throwException() throws IllegalArgumentException;
+//	public String getText() {
+//		return charLog.toString();
+//	}
 
 }
