@@ -124,8 +124,7 @@ public class FiniteAutomata extends Recognizer {
 		updateState(c);
 
 		succeeded = finalStates.contains(currentState);
-
-		if (finalStates.contains(currentState) || currentState == -1)
+		if (succeeded || currentState == -1)
 			checking = false;
 	}
 

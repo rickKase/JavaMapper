@@ -36,11 +36,11 @@ public class Test {
 		chars.add('\'');
 		chars.add('\"');
 		chars.add('\\');
-		chars.add('\t');
-		chars.add('\n');
-		chars.add('\b');
-		chars.add('\f');
-		chars.add('\r');
+		chars.add('t');
+		chars.add('n');
+		chars.add('b');
+		chars.add('f');
+		chars.add('r');
 		stringAutomata.addTransition(2, 1, chars);
 
 		Scanner scanner = new Scanner(System.in);
