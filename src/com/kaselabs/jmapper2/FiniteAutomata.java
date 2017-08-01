@@ -124,7 +124,7 @@ public class FiniteAutomata extends Recognizer {
 		updateState(c);
 
 		succeeded = finalStates.contains(currentState);
-		if (succeeded || currentState == -1)
+		if (succeeded || isStateValid(currentState))
 			checking = false;
 	}
 
@@ -156,6 +156,17 @@ public class FiniteAutomata extends Recognizer {
 		if (isChecking() || !isSucceeded())
 			return null;
 		return new TerminalToken(tokenType, charLog.toString());
+	}
+
+	/**
+	 * convenience method for determining whether or not a state
+	 * is a valid state under the definition of this Automata.
+	 * @param state to be checked for validity
+	 * @return boolean representing whether or not the state is
+	 * valid
+	 */
+	private boolean isStateValid(int state) {
+		return state > -1 && state < numOfStates;
 	}
 
 	/**
