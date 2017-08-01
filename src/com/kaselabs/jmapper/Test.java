@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 /**
  * Created by Rick on 7/29/2017.
+ *
  */
 public class Test {
 
@@ -28,7 +29,7 @@ public class Test {
 		for (char chr : string.toCharArray()) {
 			fa.checkNext(chr);
 			if (fa.isSucceeded())
-				System.out.println(fa.getOutput().getContent());
+				System.out.println(fa.getOutput().getText());
 			if (!fa.isChecking())
 				fa.reset();
 
@@ -42,7 +43,7 @@ public class Test {
 
 
 	public static void test1() {
-		/* this is a comment */
+		/* Create a multiline Automata */
 		FiniteAutomata multilineCommentAutomata
 				= new FiniteAutomata(TokenType.MULTILINE_COMMENT ,5);
 
@@ -56,6 +57,7 @@ public class Test {
 		multilineCommentAutomata.addTransition(3, 4, '/');
 
 
+		/* Create a String Automata */
 		FiniteAutomata stringAutomata
 				= new FiniteAutomata(TokenType.STRING_LITERAL, 4);
 
@@ -87,9 +89,9 @@ public class Test {
 				multilineCommentAutomata.checkNext(chr);
 
 			if (stringAutomata.isSucceeded())
-				System.out.println(stringAutomata.getOutput().getContent());
+				System.out.println(stringAutomata.getOutput().getText());
 			if (multilineCommentAutomata.isSucceeded())
-				System.out.println(multilineCommentAutomata.getOutput().getContent());
+				System.out.println(multilineCommentAutomata.getOutput().getText());
 
 			if (!stringAutomata.isChecking()
 					&& !multilineCommentAutomata.isChecking()) {

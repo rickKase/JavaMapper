@@ -14,17 +14,10 @@ package com.kaselabs.jmapper;
 public abstract class Token {
 
 	protected TokenType tokenType;
-	protected String content;
 
-	/**
-	 * Tokens must be created with their tokenType and value
-	 * on Construction.
-	 * @param tokenType type of Token
-	 * @param content value of Token
-	 */
-	public Token(TokenType tokenType, String content) {
+
+	public Token(TokenType tokenType) {
 		this.tokenType = tokenType;
-		this.content = content;
 	}
 
 	/**
@@ -39,7 +32,5 @@ public abstract class Token {
 	 * Returns the string content of this Token.
 	 * @return the string content of this token
 	 */
-	public String getContent() {
-		return content;
-	}
+	public abstract String getText();
 }

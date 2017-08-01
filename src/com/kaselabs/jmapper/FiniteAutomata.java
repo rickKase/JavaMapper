@@ -20,6 +20,7 @@ public class FiniteAutomata extends Recognizer {
 	private List<List<Transition>> transitionFunction;
 
 	private int currentState;
+	private CompoundToken token;
 
 	////////////////////////////////
 	///// Creating an Automata /////
@@ -99,6 +100,7 @@ public class FiniteAutomata extends Recognizer {
 	public void reset() {
 		super.reset();
 		currentState = 0;
+		token = new CompoundToken(tokenType);
 	}
 
 	/**
@@ -154,7 +156,8 @@ public class FiniteAutomata extends Recognizer {
 	public Token getOutput() {
 		if (isChecking() || !isSucceeded())
 			return null;
-		return new TerminalToken(tokenType, charLog.toString());
+		token.addToken(new TextToken(tokenType, charLog.toString()));
+		return token;
 	}
 
 	/**
