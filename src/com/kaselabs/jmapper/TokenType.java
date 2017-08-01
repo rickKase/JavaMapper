@@ -1,4 +1,4 @@
-package com.kaselabs.jmapper2;
+package com.kaselabs.jmapper;
 
 /**
  * Created by Rick on 7/28/2017.

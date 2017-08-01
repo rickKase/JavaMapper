@@ -1,4 +1,4 @@
-package com.kaselabs.jmapper2;
+package com.kaselabs.jmapper;
 
 import java.util.List;
 

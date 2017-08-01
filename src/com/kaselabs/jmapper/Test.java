@@ -1,5 +1,6 @@
-package com.kaselabs.jmapper2;
+package com.kaselabs.jmapper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,6 +11,37 @@ import java.util.Scanner;
 public class Test {
 
 	public static void main(String[] args) {
+		test2();
+	}
+
+
+
+
+	public static void test2() {
+		Dao dao = new Dao();
+		FiniteAutomata fa = (FiniteAutomata) dao.readRecognizer(
+				new File("data\\recognizers\\multiline-comment.xml"));
+
+		Scanner scanner = new Scanner(System.in);
+		String string = scanner.nextLine();
+
+		for (char chr : string.toCharArray()) {
+			fa.checkNext(chr);
+			if (fa.isSucceeded())
+				System.out.println(fa.getOutput().getContent());
+			if (!fa.isChecking())
+				fa.reset();
+
+		}
+
+	}
+
+
+
+
+
+
+	public static void test1() {
 		/* this is a comment */
 		FiniteAutomata multilineCommentAutomata
 				= new FiniteAutomata(TokenType.MULTILINE_COMMENT ,5);
@@ -27,13 +59,11 @@ public class Test {
 		FiniteAutomata stringAutomata
 				= new FiniteAutomata(TokenType.STRING_LITERAL, 4);
 
-
 		stringAutomata.addFinalState(3);
 		stringAutomata.addDefaultStateFor(1, 1);
 		stringAutomata.addTransition(0, 1, '"');
 		stringAutomata.addTransition(1, 3, '"');
 		stringAutomata.addTransition(1, 2, '\\');
-
 		List<Character> chars = new ArrayList<>();
 		chars.add('\'');
 		chars.add('\"');
@@ -46,7 +76,6 @@ public class Test {
 		stringAutomata.addTransition(2, 1, chars);
 
 		Scanner scanner = new Scanner(System.in);
-
 
 		String string = scanner.nextLine();
 
@@ -67,7 +96,6 @@ public class Test {
 				stringAutomata.reset();
 				multilineCommentAutomata.reset();
 			}
-
 		}
 	}
 

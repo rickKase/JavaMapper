@@ -1,10 +1,7 @@
-package com.kaselabs.jmapper2;
+package com.kaselabs.jmapper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.IntStream;
 
 /**
  * Created by Rick on 7/28/2017.
@@ -126,7 +123,7 @@ public class FiniteAutomata extends Recognizer {
 		updateState(c);
 
 		succeeded = finalStates.contains(currentState);
-		if (succeeded || isStateValid(currentState))
+		if (succeeded || !isStateValid(currentState))
 			checking = false;
 	}
 
@@ -169,6 +166,41 @@ public class FiniteAutomata extends Recognizer {
 	 */
 	private boolean isStateValid(int state) {
 		return state > -1 && state < numOfStates;
+	}
+
+
+	@Override
+	public String toString() {
+		StringBuilder build = new StringBuilder();
+		build.append("Token Type: " + tokenType + "\n");
+		build.append("number Of States: " + numOfStates + "\n");
+
+		build.append("Final States: {");
+		for (int i = 0; i < finalStates.size(); i++) {
+			build.append(finalStates.get(i));
+			if (i < finalStates.size() - 1)
+				build.append(", ");
+		}
+
+		build.append("}\nDefault States:\n");
+		for (int i = 0; i < defaultStateMaps.length; i++) {
+			build.append("\t" + i + " -> " + defaultStateMaps[i] + "\n");
+		}
+		build.append("Transition Function:\n");
+		for (int i = 0; i < transitionFunction.size(); i++) {
+			build.append("\tState " + i + " ->\n");
+			for (int j = 0; j < transitionFunction.get(i).size(); j++) {
+				Transition transition = transitionFunction.get(i).get(j);
+				build.append("\t\tState " + transition.getEnd() + " on characters: {");
+				for (int k = 0; k < transition.triggers.size(); k++) {
+					build.append(transition.triggers.get(k));
+					if (k < transition.triggers.size() - 1)
+						build.append(", ");
+				}
+				build.append("}\n");
+			}
+		}
+		return build.toString();
 	}
 
 	/**
