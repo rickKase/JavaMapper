@@ -1,54 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE dfa SYSTEM "..\schema\dfa.dtd">
-<dfa>
-	<state>
-		<id>0</id>
-		<default>null</default>
-		<initial>true</initial>
-		<final>false</final>
-	</state>
-	<state>
-		<id>1</id>
-		<default>null</default>
-		<initial>false</initial>
-		<final>false</final>
-	</state>
-	<state>
-		<id>2</id>
-		<default>2</default>
-		<initial>false</initial>
-		<final>false</final>
-	</state>
-	<state>
-		<id>3</id>
-		<default>2</default>
-		<initial>false</initial>
-		<final>false</final>
-	</state>
-	<state>
-		<id>4</id>
-		<default>null</default>
-		<initial>false</initial>
-		<final>true</final>
-	</state>
+<!DOCTYPE finiteAutomata SYSTEM "..\schema\FiniteAutomata.dtd">
+<finiteAutomata>
+	<tokenType>STRING_LITERAL</tokenType>
+	<numberOfStates>5</numberOfStates>
+	<finalState>4</finalState>
+	<defaultMap>
+		<startState>2</startState>
+		<endState>2</endState>
+	</defaultMap>
+	<defaultMap>
+		<startState>3</startState>
+		<endState>2</endState>
+	</defaultMap>
 	<transition>
-		<id>0</id>
-		<id>1</id>
+		<startState>0</startState>
+		<endState>1</endState>
 		<trigger>/</trigger>
 	</transition>
 	<transition>
-		<id>1</id>
-		<id>2</id>
+		<startState>1</startState>
+		<endState>2</endState>
 		<trigger>*</trigger>
 	</transition>
 	<transition>
-		<id>2</id>
-		<id>3</id>
+		<startState>2</startState>
+		<endState>3</endState>
 		<trigger>*</trigger>
 	</transition>
 	<transition>
-		<id>3</id>
-		<id>4</id>
+		<startState>3</startState>
+		<endState>3</endState>
+		<trigger>*</trigger>
+	</transition>
+	<transition>
+		<startState>3</startState>
+		<endState>4</endState>
 		<trigger>/</trigger>
 	</transition>
-</dfa>
+</finiteAutomata>

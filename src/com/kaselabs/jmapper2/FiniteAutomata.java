@@ -20,8 +20,9 @@ public class FiniteAutomata extends Recognizer {
 	private int numOfStates;
 	private List<Integer> finalStates;
 	private int[] defaultStateMaps;
-	private int currentState;
 	private List<List<Transition>> transitionFunction;
+
+	private int currentState;
 
 	////////////////////////////////
 	///// Creating an Automata /////
@@ -32,7 +33,8 @@ public class FiniteAutomata extends Recognizer {
 	 * regular expressions in a string.
 	 * @param numOfStates number of states used in this Automata
 	 */
-	public FiniteAutomata(int numOfStates) {
+	public FiniteAutomata(TokenType tokenType, int numOfStates) {
+		super(tokenType);
 		this.numOfStates = numOfStates;
 		this.finalStates = new ArrayList<>();
 		transitionFunction = new ArrayList<>();

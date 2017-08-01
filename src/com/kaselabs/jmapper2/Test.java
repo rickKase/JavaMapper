@@ -11,7 +11,8 @@ public class Test {
 
 	public static void main(String[] args) {
 		/* this is a comment */
-		FiniteAutomata multilineCommentAutomata = new FiniteAutomata(5);
+		FiniteAutomata multilineCommentAutomata
+				= new FiniteAutomata(TokenType.MULTILINE_COMMENT ,5);
 
 		multilineCommentAutomata.addFinalState(4);
 		multilineCommentAutomata.addDefaultStateFor(2, 2);
@@ -23,7 +24,8 @@ public class Test {
 		multilineCommentAutomata.addTransition(3, 4, '/');
 
 
-		FiniteAutomata stringAutomata = new FiniteAutomata(4);
+		FiniteAutomata stringAutomata
+				= new FiniteAutomata(TokenType.STRING_LITERAL, 4);
 
 
 		stringAutomata.addFinalState(3);

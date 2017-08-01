@@ -30,8 +30,18 @@ public abstract class Recognizer {
 	/**
 	 * Creates a new recognizer and properly sets all values
 	 */
-	public Recognizer() {
+	public Recognizer(TokenType tokenType) {
+		this.tokenType = tokenType;
 		reset();
+	}
+
+	/**
+	 * Returns the TokenType that this recognizer is designed to
+	 * detect.
+	 * @return the TokenType this recognizer is designed to detect
+	 */
+	public TokenType getTokenType() {
+		return tokenType;
 	}
 
 	/**
@@ -83,9 +93,5 @@ public abstract class Recognizer {
 	 * @return the output Token of the string.
 	 */
 	public abstract Token getOutput();
-
-//	public String getText() {
-//		return charLog.toString();
-//	}
 
 }
