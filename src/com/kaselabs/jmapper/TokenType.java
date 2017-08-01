@@ -10,6 +10,7 @@ package com.kaselabs.jmapper;
  */
 public enum TokenType {
 
+	TEXT,
 	SINGLELINE_COMMENT,
 	MULTILINE_COMMENT,
 	JAVADOC_COMMENT,

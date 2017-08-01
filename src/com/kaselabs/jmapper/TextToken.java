@@ -7,8 +7,8 @@ public class TextToken extends Token {
 
 	private String text;
 
-	public TextToken(TokenType tokenType, String text) {
-		super(tokenType);
+	public TextToken( String text) {
+		super(TokenType.TEXT);
 		this.text = text;
 	}
 

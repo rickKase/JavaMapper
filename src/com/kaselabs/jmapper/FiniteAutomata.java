@@ -156,7 +156,7 @@ public class FiniteAutomata extends Tokenizer {
 	public Token getOutput() {
 		if (isChecking() || !isSucceeded())
 			return null;
-		token.addToken(new TextToken(tokenType, charLog.toString()));
+		token.addToken(new TextToken(charLog.toString()));
 		return token;
 	}
 
