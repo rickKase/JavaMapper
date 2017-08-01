@@ -12,7 +12,7 @@ import java.util.List;
  *
  * TODO when current state = -1, throw custom exception for all attempts to evaluate
  */
-public class FiniteAutomata extends Recognizer {
+public class FiniteAutomata extends Tokenizer {
 
 	private int numOfStates;
 	private List<Integer> finalStates;

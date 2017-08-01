@@ -11,12 +11,12 @@ package com.kaselabs.jmapper;
  * succeeded values in order to determine if the string is
  * recognized.
  *
- * Each Recognizer is intended to work in tandem with several
+ * Each Tokenizer is intended to work in tandem with several
  * other recognizers, all at different levels of a tree
  * hierarchy.
  *
  */
-public abstract class Recognizer {
+public abstract class Tokenizer {
 
 
 	protected boolean checking;
@@ -28,7 +28,7 @@ public abstract class Recognizer {
 	/**
 	 * Creates a new recognizer and properly sets all values
 	 */
-	public Recognizer(TokenType tokenType) {
+	public Tokenizer(TokenType tokenType) {
 		this.tokenType = tokenType;
 		reset();
 	}
@@ -86,7 +86,7 @@ public abstract class Recognizer {
 	}
 
 	/**
-	 * Returns the output Token if the Recognizer is both not
+	 * Returns the output Token if the Tokenizer is both not
 	 * checking and has succeeded. Otherwise it will return null.
 	 * @return the output Token of the string.
 	 */

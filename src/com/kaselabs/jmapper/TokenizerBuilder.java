@@ -5,8 +5,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +12,7 @@ import java.util.List;
  * Created by Rick on 8/1/2017.
  *
  */
-public class RecognizerParser {
+public class TokenizerBuilder {
 
 	public static final String FINITE_AUTOMATA_NODE = "finiteAutomata";
 	public static final String TOKEN_TYPE_NODE = "tokenType";
@@ -31,12 +29,12 @@ public class RecognizerParser {
 	//// public functions /////
 	///////////////////////////
 
-	public Recognizer createRecognizer(Document document) {
+	public Tokenizer createRecognizer(Document document) {
 		Element root = document.getDocumentElement();
 		if (root.getTagName().equals(FINITE_AUTOMATA_NODE))
 			return createFiniteAutomata(root);
 		else
-			throw new IllegalArgumentException("Illegal Recognizer Data");
+			throw new IllegalArgumentException("Illegal Tokenizer Data");
 	}
 
 

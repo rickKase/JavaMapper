@@ -9,8 +9,8 @@ import java.util.List;
  */
 public class JavaLexer {
 
-	/* will be a "file" recognizer and recognize the entire input */
-	private Recognizer recognizer;
+	/* will be a "file" tokenizer and recognize the entire input */
+	private Tokenizer tokenizer;
 	private List<Character> input;
 
 	public JavaLexer() {
@@ -24,10 +24,10 @@ public class JavaLexer {
 	public Token interpretInput(){
 		Token token;
 		for (int i = 0; i < input.size(); i++) {
-			recognizer.checkNext(input.get(i));
-			if (!recognizer.isChecking())
-				if (recognizer.isSucceeded() && i == input.size() - 1)
-					return recognizer.getOutput();
+			tokenizer.checkNext(input.get(i));
+			if (!tokenizer.isChecking())
+				if (tokenizer.isSucceeded() && i == input.size() - 1)
+					return tokenizer.getOutput();
 				else
 					break;
 		}

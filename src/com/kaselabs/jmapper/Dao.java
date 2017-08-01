@@ -8,8 +8,6 @@ import org.xml.sax.SAXParseException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.TransformerConfigurationException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,13 +21,13 @@ public class Dao {
 	private DocumentBuilderFactory dFactory;
 	private DocumentBuilder builder;
 
-	private RecognizerParser recognizerParser;
+	private TokenizerBuilder tokenizerBuilder;
 
 	public Dao() {
 		dFactory = DocumentBuilderFactory.newInstance();
 		initializeConfiguration();
 
-		recognizerParser = new RecognizerParser();
+		tokenizerBuilder = new TokenizerBuilder();
 	}
 
 	/**
@@ -85,8 +83,8 @@ public class Dao {
 		return readFileLineList(file).iterator();
 	}
 
-	public Recognizer readRecognizer(File file) {
-		return recognizerParser.createRecognizer(readDocument(file));
+	public Tokenizer readRecognizer(File file) {
+		return tokenizerBuilder.createRecognizer(readDocument(file));
 	}
 
 

@@ -5,8 +5,8 @@ package com.kaselabs.jmapper;
  *
  * Tokens are bits of syntactic information that are more meaningful
  * representations of the data they represent. They are created
- * through a Recognizer that is designed to find that particular
- * Token in text input and outputted as the result of the Recognizer.
+ * through a Tokenizer that is designed to find that particular
+ * Token in text input and outputted as the result of the Tokenizer.
  *
  * TODO Create an enforcement mechanism for incorrect Tokens
  * TODO Create factory class for creating Tokens of a certain type.
