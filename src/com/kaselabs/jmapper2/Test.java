@@ -2,6 +2,7 @@ package com.kaselabs.jmapper2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by Rick on 7/29/2017.
@@ -9,6 +10,7 @@ import java.util.List;
 public class Test {
 
 	public static void main(String[] args) {
+		/* this is a comment */
 		FiniteAutomata multilineCommentAutomata = new FiniteAutomata(5);
 
 		multilineCommentAutomata.addFinalState(4);
@@ -22,6 +24,7 @@ public class Test {
 
 
 		FiniteAutomata stringAutomata = new FiniteAutomata(4);
+
 
 		stringAutomata.addFinalState(3);
 		stringAutomata.addDefaultStateFor(1, 1);
@@ -40,9 +43,11 @@ public class Test {
 		chars.add('\r');
 		stringAutomata.addTransition(2, 1, chars);
 
+		Scanner scanner = new Scanner(System.in);
 
 
-		String string = "\"This is a string\"/* comment */ dfasdf /* comment */ \"This is another string\"";
+		String string = scanner.nextLine();
+
 
 		for (char chr : string.toCharArray()) {
 			if (stringAutomata.isChecking())

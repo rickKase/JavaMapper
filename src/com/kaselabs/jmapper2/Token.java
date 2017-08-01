@@ -3,26 +3,43 @@ package com.kaselabs.jmapper2;
 /**
  * Created by Rick on 7/28/2017.
  *
- * For now, there will be no enforcement mechanism for ensuring
- * that Token Types are created as the Proper type, either
- * terminal or nonterminal, or ensure that nonterminal tokens
- * have a valid amount of children.
+ * Tokens are bits of syntactic information that are more meaningful
+ * representations of the data they represent. They are created
+ * through a Recognizer that is designed to find that particular
+ * Token in text input and outputted as the result of the Recognizer.
  *
- * This could be done in the future by creating a factory class
- * for "getting" tokens of a particular type.
+ * TODO Create an enforcement mechanism for incorrect Tokens
+ * TODO Create factory class for creating Tokens of a certain type.
  */
 public abstract class Token {
 
 	protected TokenType tokenType;
+	protected String content;
 
-	public Token(TokenType tokenType) {
+	/**
+	 * Tokens must be created with their tokenType and value
+	 * on Construction.
+	 * @param tokenType type of Token
+	 * @param content value of Token
+	 */
+	public Token(TokenType tokenType, String content) {
 		this.tokenType = tokenType;
+		this.content = content;
 	}
 
+	/**
+	 * Returns the type of value that this Token represents.
+	 * @return the TokenType of this token
+	 */
 	public TokenType getTokenType() {
 		return tokenType;
 	}
 
-	public abstract String getContent();
-
+	/**
+	 * Returns the string content of this Token.
+	 * @return the string content of this token
+	 */
+	public String getContent() {
+		return content;
+	}
 }
