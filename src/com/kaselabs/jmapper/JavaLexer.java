@@ -1,36 +1,36 @@
 package com.kaselabs.jmapper;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Should create a list of all the DFAs
- * Should use them to take raw text data and turn it into a
- * format that is more easily parsable.
+ * Created by Rick on 7/28/2017.
+ *
+ *
  */
 public class JavaLexer {
 
-	private List<Recognizer> recognizers;
+	/* will be a "file" recognizer and recognize the entire input */
+	private Recognizer recognizer;
 	private List<Character> input;
 
-	public JavaLexer(File file) {
-		recognizers = new ArrayList<>();
-		input = IOHandler.readFileCharList(file);
+	public JavaLexer() {
+		loadRecognizer();
 	}
 
-	public Token evaluate() {
+	public void loadRecognizer() {
+
+	}
+
+	public Token interpretInput(){
+		Token token;
 		for (int i = 0; i < input.size(); i++) {
-			for (Recognizer recognizer : recognizers) {
-				if (recognizer.isChecking())
-					recognizer.checkNext(input.get(i));
-
-			}
+			recognizer.checkNext(input.get(i));
+			if (!recognizer.isChecking())
+				if (recognizer.isSucceeded() && i == input.size() - 1)
+					return recognizer.getOutput();
+				else
+					break;
 		}
-
-		return null;
+		throw new IllegalArgumentException();
 	}
-
 }

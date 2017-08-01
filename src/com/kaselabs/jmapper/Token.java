@@ -2,22 +2,35 @@ package com.kaselabs.jmapper;
 
 /**
  * Created by Rick on 7/28/2017.
+ *
+ * Tokens are bits of syntactic information that are more meaningful
+ * representations of the data they represent. They are created
+ * through a Recognizer that is designed to find that particular
+ * Token in text input and outputted as the result of the Recognizer.
+ *
+ * TODO Create an enforcement mechanism for incorrect Tokens
+ * TODO Create factory class for creating Tokens of a certain type.
  */
-public class Token {
+public abstract class Token {
 
-	private String tokenType;
-	private String value;
+	protected TokenType tokenType;
 
-	public Token(String tokenType, String value) {
+
+	public Token(TokenType tokenType) {
 		this.tokenType = tokenType;
-		this.value = value;
 	}
 
-	public String getTokenType() {
+	/**
+	 * Returns the type of value that this Token represents.
+	 * @return the TokenType of this token
+	 */
+	public TokenType getTokenType() {
 		return tokenType;
 	}
 
-	public String getValue() {
-		return value;
-	}
+	/**
+	 * Returns the string content of this Token.
+	 * @return the string content of this token
+	 */
+	public abstract String getText();
 }
