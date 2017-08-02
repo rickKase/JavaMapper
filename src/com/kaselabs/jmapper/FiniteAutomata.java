@@ -19,8 +19,7 @@ public class FiniteAutomata extends Tokenizer {
 	private int[] defaultStateMaps;
 	private List<List<Transition>> transitionFunction;
 
-	private int currentState;
-	private CompoundToken token;
+	public int currentState;
 
 	////////////////////////////////
 	///// Creating an Automata /////
@@ -100,7 +99,6 @@ public class FiniteAutomata extends Tokenizer {
 	public void reset() {
 		super.reset();
 		currentState = 0;
-		token = new CompoundToken(tokenType);
 	}
 
 	/**
@@ -210,7 +208,7 @@ public class FiniteAutomata extends Tokenizer {
 	 * Transition from one state to another state given a particular
 	 * trigger or set of triggers.
 	 */
-	private class Transition {
+	protected class Transition {
 
 		private int start;
 		private int end;

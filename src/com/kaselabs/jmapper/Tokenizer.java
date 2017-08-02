@@ -25,6 +25,8 @@ public abstract class Tokenizer {
 	protected StringBuilder charLog;
 	protected TokenType tokenType;
 
+	protected CompoundToken token;
+
 	/**
 	 * Creates a new recognizer and properly sets all values
 	 */
@@ -68,13 +70,15 @@ public abstract class Tokenizer {
 	}
 
 	/**
-	 * Resets the recognizer for a new set of input.
-	 *
+	 * Resets the recognizer for a new set of input in the off state.
+	 * For the next set of input to begin being processed, startChecking()
+	 * must also be called.
 	 */
 	public void reset() {
 		checking = true;
 		succeeded = false;
 		charLog = new StringBuilder();
+		token = new CompoundToken(tokenType);
 	}
 
 	/**

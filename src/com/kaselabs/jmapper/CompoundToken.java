@@ -29,8 +29,6 @@ public class CompoundToken extends Token {
 		StringBuilder build = new StringBuilder();
 		for (int i = 0; i < tokens.size(); i++) {
 			build.append(tokens.get(i).getText());
-			if (i < tokens.size() - 1)
-				build.append(" ");
 		}
 		return build.toString();
 	}
