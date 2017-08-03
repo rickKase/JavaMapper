@@ -1,13 +1,15 @@
 package com.kaselabs.jmapper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Rick on 8/1/2017.
  *
+ * An Automata that can branch downwards into other Automata.
+ * Acts much like an ordinary automata except that each state
+ * can lead to other automata capable of recognizing other
+ * inputs.
  */
 public class CompoundAutomata extends FiniteAutomata {
 
@@ -15,6 +17,13 @@ public class CompoundAutomata extends FiniteAutomata {
 
 	public List<FiniteAutomata> activeAutomata;
 
+	/**
+	 * Constructs a Compound Automata with a set number of states
+	 * that is designed to identify and Tokenize the particular
+	 * Token Type.
+	 * @param tokenType to be identified
+	 * @param numOfStates in the Automata
+	 */
 	public CompoundAutomata(TokenType tokenType, int numOfStates) {
 		super(tokenType, numOfStates);
 		subAutomata = new ArrayList<>();
@@ -23,13 +32,25 @@ public class CompoundAutomata extends FiniteAutomata {
 		activeAutomata = new ArrayList<>();
 	}
 
+	/**
+	 * Adds a sub automata that is meant to identify tokens that exist
+	 * within the context of this Compound Automata.
+	 * @param state the state at which this Automata can be activated
+	 * @param automata the automata to be checked for
+	 */
 	public void addAutomata(int state, FiniteAutomata automata) {
 			subAutomata.get(state).add(automata);
 	}
 
 	/**
 	 * TODO could remove automata from active list when isChecking = false
-	 * @param c
+	 *
+	 * Checks the current input character against the list of active
+	 * automata. If one succeeds then it adds a token representing it
+	 * to this Compound Automata's token. If they all fail then it
+	 * terminates the Compound Automata's search by setting isChecking
+	 * to false.
+	 * @param c character to be checked
 	 */
 	private void checkActiveList(char c) {
 		boolean stillChecking = false;
@@ -47,6 +68,12 @@ public class CompoundAutomata extends FiniteAutomata {
 			checking = false;
 	}
 
+	/**
+	 * Checks all the sub automata that can be accessed from the current
+	 * state against the input character. Any that are still checking after
+	 * the input are added to activeAutomata list.
+	 * @param c character to be checked
+	 */
 	private void checkSubAutomata(char c) {
 		for (FiniteAutomata automata : subAutomata.get(currentState)) {
 			automata.reset();
@@ -61,6 +88,15 @@ public class CompoundAutomata extends FiniteAutomata {
 		}
 	}
 
+	/**
+	 * Checks the activeAutomata list against the character input
+	 * if the list is not empty. If the list is empty then the
+	 * automata checks any possible sub automata that are accessible
+	 * from the current state. If none succeed then the input is
+	 * checked against the transitions available at the current
+	 * state within this compound automata.
+	 * @param c character to be checked
+	 */
 	@Override
 	public void checkNext(char c) {
 		if (!activeAutomata.isEmpty())
@@ -72,6 +108,10 @@ public class CompoundAutomata extends FiniteAutomata {
 		}
 	}
 
+	/**
+	 * Resets this Automata to an initial state for a new input
+	 * String.
+	 */
 	public void reset() {
 		super.reset();
 		activeAutomata = new ArrayList<>();
