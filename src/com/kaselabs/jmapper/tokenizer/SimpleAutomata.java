@@ -1,4 +1,6 @@
-package com.kaselabs.jmapper;
+package com.kaselabs.jmapper.tokenizer;
+
+import com.kaselabs.jmapper.token.TokenType;
 
 /**
  * Created by Rick on 8/4/2017.

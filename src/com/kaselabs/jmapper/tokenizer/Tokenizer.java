@@ -1,4 +1,8 @@
-package com.kaselabs.jmapper;
+package com.kaselabs.jmapper.tokenizer;
+
+import com.kaselabs.jmapper.token.CompoundToken;
+import com.kaselabs.jmapper.token.Token;
+import com.kaselabs.jmapper.token.TokenType;
 
 /**
  * Created by Rick on 7/28/2017.
@@ -90,9 +94,9 @@ public abstract class Tokenizer {
 	}
 
 	/**
-	 * Returns the output Token if the Tokenizer is both not
+	 * Returns the output token if the Tokenizer is both not
 	 * checking and has succeeded. Otherwise it will return null.
-	 * @return the output Token of the string.
+	 * @return the output token of the string.
 	 */
 	public abstract Token getOutput();
 

@@ -1,5 +1,6 @@
-package com.kaselabs.jmapper;
+package com.kaselabs.jmapper.io;
 
+import com.kaselabs.jmapper.tokenizer.Tokenizer;
 import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;

@@ -1,4 +1,8 @@
-package com.kaselabs.jmapper;
+package com.kaselabs.jmapper.tokenizer;
+
+import com.kaselabs.jmapper.token.TextToken;
+import com.kaselabs.jmapper.token.Token;
+import com.kaselabs.jmapper.token.TokenType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,9 +150,9 @@ public abstract class Automata extends Tokenizer {
 
 	/**
 	 * Returns null if the automata is either failed or still checking,
-	 * otherwise will return a Token representing the value of found
-	 * Token.
-	 * @return Token that was recognized
+	 * otherwise will return a token representing the value of found
+	 * token.
+	 * @return token that was recognized
 	 */
 	@Override
 	public Token getOutput() {
@@ -173,7 +177,7 @@ public abstract class Automata extends Tokenizer {
 	@Override
 	public String toString() {
 		StringBuilder build = new StringBuilder();
-		build.append("Token Type: " + tokenType + "\n");
+		build.append("token Type: " + tokenType + "\n");
 		build.append("number Of States: " + numOfStates + "\n");
 
 		build.append("Final States: {");

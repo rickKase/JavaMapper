@@ -1,7 +1,10 @@
-package com.kaselabs.jmapper;
+package com.kaselabs.jmapper.io;
 
+import com.kaselabs.jmapper.tokenizer.Automata;
+import com.kaselabs.jmapper.tokenizer.CompoundAutomata;
+import com.kaselabs.jmapper.tokenizer.SimpleAutomata;
+import com.kaselabs.jmapper.token.TokenType;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

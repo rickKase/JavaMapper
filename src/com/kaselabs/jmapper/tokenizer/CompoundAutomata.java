@@ -1,4 +1,7 @@
-package com.kaselabs.jmapper;
+package com.kaselabs.jmapper.tokenizer;
+
+import com.kaselabs.jmapper.token.TextToken;
+import com.kaselabs.jmapper.token.TokenType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +18,14 @@ import java.util.List;
  */
 public class CompoundAutomata extends SimpleAutomata {
 
-	public List<List<Automata>> subAutomata;
+	public List<List<Tokenizer>> subAutomata;
 
-	public List<Automata> activeAutomata;
+	public List<Tokenizer> activeAutomata;
 
 	/**
 	 * Constructs a Compound Automata with a set number of states
 	 * that is designed to identify and Tokenize the particular
-	 * Token Type.
+	 * token Type.
 	 * @param tokenType to be identified
 	 * @param numOfStates in the Automata
 	 */
@@ -56,7 +59,7 @@ public class CompoundAutomata extends SimpleAutomata {
 	 */
 	private void checkActiveList(char c) {
 		boolean stillChecking = false;
-		for (Automata automata : activeAutomata) {
+		for (Tokenizer automata : activeAutomata) {
 			if (automata.isChecking())
 				automata.checkNext(c);
 			if (automata.isSucceeded()) {
@@ -77,7 +80,7 @@ public class CompoundAutomata extends SimpleAutomata {
 	 * @param c character to be checked
 	 */
 	private void checkSubAutomata(char c) {
-		for (Automata automata : subAutomata.get(currentState)) {
+		for (Tokenizer automata : subAutomata.get(currentState)) {
 			automata.reset();
 			automata.checkNext(c);
 			if (automata.isChecking())

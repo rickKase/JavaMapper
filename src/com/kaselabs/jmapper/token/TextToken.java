@@ -1,9 +1,9 @@
-package com.kaselabs.jmapper;
+package com.kaselabs.jmapper.token;
 
 /**
  * Created by Rick on 8/1/2017.
  *
- * A Token that represents a String of Text. All Tokens
+ * A token that represents a String of Text. All Tokens
  * are at root comprised of Text Tokens.
  */
 public class TextToken extends Token {
@@ -11,7 +11,7 @@ public class TextToken extends Token {
 	private String text;
 
 	/**
-	 * Creates a Text Token that represents the text passed
+	 * Creates a Text token that represents the text passed
 	 * as input.
 	 * @param text to be repesented.
 	 */
@@ -21,8 +21,8 @@ public class TextToken extends Token {
 	}
 
 	/**
-	 * returns the text represented by this Token.
-	 * @return the text represented by this Token.
+	 * returns the text represented by this token.
+	 * @return the text represented by this token.
 	 */
 	@Override
 	public String getText() {

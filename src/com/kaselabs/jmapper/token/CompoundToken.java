@@ -1,4 +1,4 @@
-package com.kaselabs.jmapper;
+package com.kaselabs.jmapper.token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,14 +6,14 @@ import java.util.List;
 /**
  * Created by Rick on 8/1/2017.
  *
- * A Token that is made up of smaller composite Tokens.
+ * A token that is made up of smaller composite Tokens.
  */
 public class CompoundToken extends Token {
 
 	private List<Token> tokens;
 
 	/**
-	 * Creates a Token that is comprised of other smaller
+	 * Creates a token that is comprised of other smaller
 	 * tokens.
 	 * @param tokenType Type of token
 	 */

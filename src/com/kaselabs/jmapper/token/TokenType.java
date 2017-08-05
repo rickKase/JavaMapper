@@ -1,4 +1,4 @@
-package com.kaselabs.jmapper;
+package com.kaselabs.jmapper.token;
 
 /**
  * Created by Rick on 7/28/2017.
