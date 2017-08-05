@@ -12,14 +12,14 @@ import java.util.Scanner;
 public class Test {
 
 	public static void main(String[] args) {
-		test3();
+		test1();
 	}
 
 
 
 
 	public static void test3() {
-		FiniteAutomata javaCharAutomata = new FiniteAutomata(
+		Automata javaCharAutomata = new Automata(
 				TokenType.JAVA_SPECIAL_CHARACTER, 3);
 		javaCharAutomata.addFinalState(2);
 		javaCharAutomata.addTransition(0, 1, '\\');
@@ -34,7 +34,7 @@ public class Test {
 		javaCharTriggers.add('r');
 		javaCharAutomata.addTransition(1, 2, javaCharTriggers);
 
-		FiniteAutomata uniCharAutomata = new FiniteAutomata(
+		Automata uniCharAutomata = new Automata(
 				TokenType.UNICODE_CHARACTER, 7);
 		uniCharAutomata.addFinalState(6);
 		uniCharAutomata.addTransition(0, 1, '\\');
@@ -107,7 +107,7 @@ public class Test {
 
 	public static void test2() {
 		Dao dao = new Dao();
-		FiniteAutomata fa = (FiniteAutomata) dao.readRecognizer(
+		Automata fa = (Automata) dao.readRecognizer(
 				new File("data\\recognizers\\multiline-comment.xml"));
 
 		Scanner scanner = new Scanner(System.in);
@@ -128,8 +128,8 @@ public class Test {
 
 	public static void test1() {
 		/* Create a multiline Automata */
-		FiniteAutomata multilineCommentAutomata
-				= new FiniteAutomata(TokenType.MULTILINE_COMMENT ,5);
+		Automata multilineCommentAutomata
+				= new Automata(TokenType.MULTILINE_COMMENT ,5);
 
 		multilineCommentAutomata.addFinalState(4);
 		multilineCommentAutomata.addDefaultStateFor(2, 2);
@@ -142,8 +142,8 @@ public class Test {
 
 
 		/* Create a String Automata */
-		FiniteAutomata stringAutomata
-				= new FiniteAutomata(TokenType.STRING_LITERAL, 4);
+		Automata stringAutomata
+				= new Automata(TokenType.STRING_LITERAL, 4);
 
 		stringAutomata.addFinalState(3);
 		stringAutomata.addDefaultStateFor(1, 1);

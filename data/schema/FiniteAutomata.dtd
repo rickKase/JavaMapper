@@ -1,9 +1,0 @@
-<!ELEMENT finiteAutomata (tokenType, numberOfStates, finalState*, defaultMap*, transition*)>
-<!ELEMENT tokenType (#PCDATA)>
-<!ELEMENT numberOfStates (#PCDATA)>
-<!ELEMENT finalState (#PCDATA)>
-<!ELEMENT defaultMap (startState, endState)>
-<!ELEMENT startState (#PCDATA)>
-<!ELEMENT endState (#PCDATA)>
-<!ELEMENT transition (startState, endState, trigger*)>
-<!ELEMENT trigger (#PCDATA)>

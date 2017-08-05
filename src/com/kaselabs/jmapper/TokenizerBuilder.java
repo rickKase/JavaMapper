@@ -11,10 +11,11 @@ import java.util.List;
 /**
  * Created by Rick on 8/1/2017.
  *
+ * Will need to be redesigned for clarity purposes in near future.
  */
 public class TokenizerBuilder {
 
-	public static final String FINITE_AUTOMATA_NODE = "finiteAutomata";
+	public static final String AUTOMATA_NODE = "automata";
 	public static final String TOKEN_TYPE_NODE = "tokenType";
 	public static final String NUMBER_OF_STATES_NODE = "numberOfStates";
 	public static final String FINAL_STATE_NODE = "finalState";
@@ -24,82 +25,132 @@ public class TokenizerBuilder {
 	public static final String TRANSITION_NODE = "transition";
 	public static final String TRIGGER_NODE = "trigger";
 
+	public static final String COMPOUND_AUTOMATA_NODE = "compoundAutomata";
+	public static final String SUBAUTOMATA_NODE = "subAutomata";
+
 
 	///////////////////////////
 	//// public functions /////
 	///////////////////////////
 
-	public Tokenizer createRecognizer(Document document) {
-		Element root = document.getDocumentElement();
-		if (root.getTagName().equals(FINITE_AUTOMATA_NODE))
-			return createFiniteAutomata(root);
+	public Automata createAutomata(Document document) {
+		return createAutomata(document.getDocumentElement());
+	}
+
+
+	//////////////////////////
+	///// Parse Automata /////
+	//////////////////////////
+
+	private Automata createAutomata(Node root) {
+		if (root.getNodeName().equals(AUTOMATA_NODE))
+			return createSimpleAutomata(root);
+		else if (root.getNodeName().equals(COMPOUND_AUTOMATA_NODE))
+			return createCompoundAutomata(root);
 		else
 			throw new IllegalArgumentException("Illegal Tokenizer Data");
 	}
 
-
-	//////////////////////////////////
-	///// Parse a FiniteAutomata /////
-	//////////////////////////////////
-
-	private FiniteAutomata createFiniteAutomata(Element faElement) {
-		NodeList nodes = faElement.getChildNodes();
+	private SimpleAutomata createSimpleAutomata(Node saElement) {
+		NodeList nodes = saElement.getChildNodes();
 
 		TokenType type = TokenType.valueOf(parseStringFromNode(nodes.item(0)));
 		int numberOfStates = parseIntFromNode(nodes.item(1));
-		FiniteAutomata fa = new FiniteAutomata(type, numberOfStates);
+		SimpleAutomata sa = new SimpleAutomata(type, numberOfStates);
 
 		int currentNode = 2;
 		while (currentNode < nodes.getLength() &&
 				nodes.item(currentNode).getNodeName().equals(FINAL_STATE_NODE)) {
-			fa.addFinalState(parseIntFromNode(nodes.item(currentNode)));
+			sa.addFinalState(parseIntFromNode(nodes.item(currentNode)));
 			currentNode++;
 		}
 		while (currentNode < nodes.getLength() &&
 				nodes.item(currentNode).getNodeName().equals(DEFAULT_MAP_NODE)) {
-			createDefaultMap(fa, nodes.item(currentNode));
+			createDefaultMap(sa, nodes.item(currentNode));
 			currentNode++;
 		}
 		while (currentNode < nodes.getLength() &&
 				nodes.item(currentNode).getNodeName().equals(TRANSITION_NODE)) {
-			createTransition(fa, nodes.item(currentNode));
+			createTransition(sa, nodes.item(currentNode));
 			currentNode++;
 		}
 
-		return fa;
+		return sa;
 	}
 
 	/**
-	 * Adds a default map onto the FiniteAutomata based on the data stored
+	 * Adds a default map onto the Automata based on the data stored
 	 * in the node. It is assumed that the node passed as an argument is
 	 * a DEFAULT_MAP_NODE.
-	 * @param fa FiniteAutomata to add the default map to
+	 * @param a Automata to add the default map to
 	 * @param node storing the default map data
 	 */
-	private void createDefaultMap(FiniteAutomata fa, Node node) {
+	private void createDefaultMap(Automata a, Node node) {
 		NodeList nodes = node.getChildNodes();
 		int start = parseIntFromNode(nodes.item(0));
 		int end = parseIntFromNode(nodes.item(1));
-		fa.addDefaultStateFor(start, end);
+		a.addDefaultStateFor(start, end);
 	}
 
 	/**
-	 * Adds a transition onto the FiniteAutomata based on the data stored
+	 * Adds a transition onto the Automata based on the data stored
 	 * in the node. It is assumed that the node passed as an argument is
 	 * a TRANSITION_NODE.
-	 * @param fa FiniteAutomata to add the transition to
+	 * @param a Automata to add the transition to
 	 * @param node storing the transition data
 	 */
-	private void createTransition(FiniteAutomata fa, Node node) {
+	private void createTransition(Automata a, Node node) {
 		NodeList nodes = node.getChildNodes();
 		int start = parseIntFromNode(nodes.item(0));
 		int end = parseIntFromNode(nodes.item(1));
 		List<Character> triggers = new ArrayList<>();
 		for (int i = 2; i < nodes.getLength(); i++)
 			triggers.add(parseCharacterFromNode(nodes.item(i)));
-		fa.addTransition(start, end, triggers);
+		a.addTransition(start, end, triggers);
 	}
 
+	////////////////////////////////////
+	///// Parse a CompoundAutomata /////
+	////////////////////////////////////
+
+	private CompoundAutomata createCompoundAutomata(Node caElement) {
+		NodeList nodes = caElement.getChildNodes();
+
+		TokenType type = TokenType.valueOf(parseStringFromNode(nodes.item(0)));
+		int numberOfStates = parseIntFromNode(nodes.item(1));
+		CompoundAutomata ca = new CompoundAutomata(type, numberOfStates);
+
+		int currentNode = 2;
+		while (currentNode < nodes.getLength() &&
+				nodes.item(currentNode).getNodeName().equals(FINAL_STATE_NODE)) {
+			ca.addFinalState(parseIntFromNode(nodes.item(currentNode)));
+			currentNode++;
+		}
+		while (currentNode < nodes.getLength() &&
+				nodes.item(currentNode).getNodeName().equals(DEFAULT_MAP_NODE)) {
+			createDefaultMap(ca, nodes.item(currentNode));
+			currentNode++;
+		}
+		while (currentNode < nodes.getLength() &&
+				nodes.item(currentNode).getNodeName().equals(TRANSITION_NODE)) {
+			createTransition(ca, nodes.item(currentNode));
+			currentNode++;
+		}
+		while (currentNode < nodes.getLength() &&
+				nodes.item(currentNode).getNodeName().equals(SUBAUTOMATA_NODE)) {
+			createSubAutomata(ca, nodes.item(currentNode));
+			currentNode++;
+		}
+
+		return null;
+	}
+
+	private void createSubAutomata(CompoundAutomata ca, Node subAutomataElement) {
+		NodeList nodes = subAutomataElement.getChildNodes();
+		int startNode = parseIntFromNode(nodes.item(0));
+		Automata subAutomata = createAutomata(nodes.item(1));
+		ca.addAutomata(startNode, subAutomata);
+	}
 
 	/////////////////////////////
 	///// Parse simple data /////

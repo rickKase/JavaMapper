@@ -11,11 +11,11 @@ import java.util.List;
  * can lead to other automata capable of recognizing other
  * inputs.
  */
-public class CompoundAutomata extends FiniteAutomata {
+public class CompoundAutomata extends SimpleAutomata {
 
-	public List<List<FiniteAutomata>> subAutomata;
+	public List<List<Automata>> subAutomata;
 
-	public List<FiniteAutomata> activeAutomata;
+	public List<Automata> activeAutomata;
 
 	/**
 	 * Constructs a Compound Automata with a set number of states
@@ -38,7 +38,7 @@ public class CompoundAutomata extends FiniteAutomata {
 	 * @param state the state at which this Automata can be activated
 	 * @param automata the automata to be checked for
 	 */
-	public void addAutomata(int state, FiniteAutomata automata) {
+	public void addAutomata(int state, Automata automata) {
 			subAutomata.get(state).add(automata);
 	}
 
@@ -54,7 +54,7 @@ public class CompoundAutomata extends FiniteAutomata {
 	 */
 	private void checkActiveList(char c) {
 		boolean stillChecking = false;
-		for (FiniteAutomata automata : activeAutomata) {
+		for (Automata automata : activeAutomata) {
 			if (automata.isChecking())
 				automata.checkNext(c);
 			if (automata.isSucceeded()) {
@@ -75,7 +75,7 @@ public class CompoundAutomata extends FiniteAutomata {
 	 * @param c character to be checked
 	 */
 	private void checkSubAutomata(char c) {
-		for (FiniteAutomata automata : subAutomata.get(currentState)) {
+		for (Automata automata : subAutomata.get(currentState)) {
 			automata.reset();
 			automata.checkNext(c);
 			if (automata.isChecking())

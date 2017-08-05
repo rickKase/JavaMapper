@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE finiteAutomata SYSTEM "..\schema\FiniteAutomata.dtd">
-<finiteAutomata>
+<!DOCTYPE automata SYSTEM "automata.dtd">
+<automata>
 	<tokenType>MULTILINE_COMMENT</tokenType>
 	<numberOfStates>5</numberOfStates>
 	<finalState>4</finalState>
@@ -37,4 +37,4 @@
 		<endState>4</endState>
 		<trigger>/</trigger>
 	</transition>
-</finiteAutomata>
+</automata>
