@@ -10,6 +10,8 @@ import java.util.List;
  * Acts much like an ordinary automata except that each state
  * can lead to other automata capable of recognizing other
  * inputs.
+ *
+ * TODO add ability to leave a subAutomata at a different state then started.
  */
 public class CompoundAutomata extends SimpleAutomata {
 
@@ -112,6 +114,7 @@ public class CompoundAutomata extends SimpleAutomata {
 	 * Resets this Automata to an initial state for a new input
 	 * String.
 	 */
+	@Override
 	public void reset() {
 		super.reset();
 		activeAutomata = new ArrayList<>();

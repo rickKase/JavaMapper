@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE automata SYSTEM "automata.dtd">
+<!DOCTYPE automata SYSTEM "..\schema\automata.dtd">
 <automata>
 	<tokenType>MULTILINE_COMMENT</tokenType>
 	<numberOfStates>5</numberOfStates>

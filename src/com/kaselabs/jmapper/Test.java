@@ -12,14 +12,34 @@ import java.util.Scanner;
 public class Test {
 
 	public static void main(String[] args) {
-		test1();
+		test4();
 	}
 
 
+	public static void test4() {
+		Dao dao = new Dao();
+		Automata stringAutomata = (Automata) dao.readRecognizer(
+				new File("data\\recognizers\\string.xml"));
 
+		System.out.println(stringAutomata);
+
+		Scanner scanner = new Scanner(System.in);
+		String string = scanner.nextLine();
+
+		for (char chr : string.toCharArray()) {
+				stringAutomata.checkNext(chr);
+
+			if (stringAutomata.isSucceeded())
+				printToken(stringAutomata.getOutput());
+
+			if (!stringAutomata.isChecking()) {
+				stringAutomata.reset();
+			}
+		}
+	}
 
 	public static void test3() {
-		Automata javaCharAutomata = new Automata(
+		Automata javaCharAutomata = new SimpleAutomata(
 				TokenType.JAVA_SPECIAL_CHARACTER, 3);
 		javaCharAutomata.addFinalState(2);
 		javaCharAutomata.addTransition(0, 1, '\\');
@@ -34,7 +54,7 @@ public class Test {
 		javaCharTriggers.add('r');
 		javaCharAutomata.addTransition(1, 2, javaCharTriggers);
 
-		Automata uniCharAutomata = new Automata(
+		Automata uniCharAutomata = new SimpleAutomata(
 				TokenType.UNICODE_CHARACTER, 7);
 		uniCharAutomata.addFinalState(6);
 		uniCharAutomata.addTransition(0, 1, '\\');
@@ -84,9 +104,6 @@ public class Test {
 		for (char chr : testString.toCharArray()) {
 			stringAutomata.checkNext(chr);
 
-
-
-
 			if (stringAutomata.isSucceeded())
 				printToken(stringAutomata.getOutput());
 
@@ -129,7 +146,7 @@ public class Test {
 	public static void test1() {
 		/* Create a multiline Automata */
 		Automata multilineCommentAutomata
-				= new Automata(TokenType.MULTILINE_COMMENT ,5);
+				= new SimpleAutomata(TokenType.MULTILINE_COMMENT ,5);
 
 		multilineCommentAutomata.addFinalState(4);
 		multilineCommentAutomata.addDefaultStateFor(2, 2);
@@ -143,7 +160,7 @@ public class Test {
 
 		/* Create a String Automata */
 		Automata stringAutomata
-				= new Automata(TokenType.STRING_LITERAL, 4);
+				= new SimpleAutomata(TokenType.STRING_LITERAL, 4);
 
 		stringAutomata.addFinalState(3);
 		stringAutomata.addDefaultStateFor(1, 1);

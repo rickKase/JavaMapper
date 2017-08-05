@@ -33,7 +33,7 @@ public class TokenizerBuilder {
 	//// public functions /////
 	///////////////////////////
 
-	public Automata createAutomata(Document document) {
+	public Automata createRecognizer(Document document) {
 		return createAutomata(document.getDocumentElement());
 	}
 
